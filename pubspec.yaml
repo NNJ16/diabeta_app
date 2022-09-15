@@ -49,6 +49,9 @@ dependencies:
   loading_animations: ^2.2.0
   outline_search_bar: ^2.3.0
   dio: ^4.0.6
+  android_alarm_manager_plus: ^2.0.7
+  shared_preferences: ^2.0.15
+  flutter_local_notifications: ^9.9.1
 
 dev_dependencies:
   flutter_test:
