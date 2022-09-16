@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../components/log_card.dart';
 import '../../../services/glucose_log_service.dart';
 import 'glucose_log_screen.dart';
@@ -15,7 +14,6 @@ class LogbookScreen extends StatefulWidget {
 class _LogbookScreenState extends State<LogbookScreen> {
   @override
   Widget build(BuildContext context) {
-    print(widget.period);
     return Container(
       child: FutureBuilder(
         future: GlucoseLogService.getRecordsByTimeFrame("001", widget.period),

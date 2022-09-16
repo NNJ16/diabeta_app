@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:diabeta_app/components/constants.dart';
 import 'package:diabeta_app/model/exercise.dart';
 import 'package:diabeta_app/services/exercise_service.dart';
@@ -19,10 +21,7 @@ class _ExerciseRecommendationScreenState
     'Diabetes',
   ];
 
-  final List<String> lifeStyleList = [
-    'Yoga',
-    'Gym'
-  ];
+  final List<String> lifeStyleList = ['Yoga', 'Gym'];
 
   final List<String> activityList = [
     'Sedentary',
@@ -40,8 +39,7 @@ class _ExerciseRecommendationScreenState
     'Stretching	'
   ];
 
-  String lifestyle="", activity="", category="", diabetes="";
-  
+  String lifestyle = "", activity = "", category = "", diabetes = "";
 
   final _formKey = GlobalKey<FormState>();
 
@@ -284,12 +282,21 @@ class _ExerciseRecommendationScreenState
                   height: 24,
                 ),
                 InkWell(
-                  onTap: () async{
-                    if (_formKey.currentState!.validate()){
+                  onTap: () async {
+                    if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      Exercise exercise = Exercise(lifestyle: lifestyle, activity: activity, category: category, diabetes: diabetes);
-                      var list = await ExerciseService.getExerciseRecommendationList(exercise);
-                      print(list);
+                      Exercise exercise = Exercise(
+                          lifestyle: lifestyle,
+                          activity: activity,
+                          category: category,
+                          diabetes: diabetes);
+                      var list =
+                          await ExerciseService.getExerciseRecommendationList(
+                              exercise);
+
+                      if (jsonDecode(list).length > 0) {
+                        showBottomSheet(jsonDecode(list));
+                      }
                     }
                   },
                   child: Container(
@@ -314,6 +321,135 @@ class _ExerciseRecommendationScreenState
           ),
         ],
       ),
+    );
+  }
+
+  void showBottomSheet(var exercises) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Container(
+              height: 500,
+              decoration: BoxDecoration(
+                  color: Colors.teal[100],
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(40.0),
+                    topRight: Radius.circular(40.0),
+                  )),
+              child: Column(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                        color: kPrimaryColor,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40.0),
+                          topRight: Radius.circular(40.0),
+                        )),
+                    height: 50,
+                    width: double.infinity,
+                    child: const Center(
+                        child: Text(
+                      "Exercises",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    )),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text("1. " + exercises[0]),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text("2. " + exercises[1]),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text("3. " + exercises[2]),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text("4. " + exercises[3]),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text("5. " + exercises[4]),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text("6. " + exercises[5]),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text("7. " + exercises[6]),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text("8. " + exercises[7]),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text("9. " + exercises[8]),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text("10. " + exercises[9]),
+                      ),
+                      const Divider(),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
