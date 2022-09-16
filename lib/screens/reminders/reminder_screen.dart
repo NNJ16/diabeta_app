@@ -3,8 +3,14 @@ import 'dart:developer' as developer;
 import 'dart:math';
 import 'dart:ui';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+import 'package:diabeta_app/components/constants.dart';
 import 'package:diabeta_app/main.dart';
+import 'package:diabeta_app/model/ReceivedNotification.dart';
+import 'package:diabeta_app/screens/reminders/reminder_details.dart';
+import 'package:diabeta_app/services/data_store.dart';
+import 'package:diabeta_app/services/local_notification_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReminderScreen extends StatefulWidget {
@@ -15,91 +21,175 @@ class ReminderScreen extends StatefulWidget {
 }
 
 class _ReminderScreenState extends State<ReminderScreen> {
-  int _counter = 0;
-
+  late final LocalNotificationService service;
+  DateTime pickedDate = DateTime.now();
+  String notificationBody = '';
+  List<dynamic> reminderList = [];
   @override
   void initState() {
+    service = LocalNotificationService();
+    service.intialize();
+    listenToNotification();
     super.initState();
-    AndroidAlarmManager.initialize();
-
-    // Register for events from the background isolate. These messages will
-    // always coincide with an alarm firing.
-    port.listen((_) async => await _incrementCounter());
-  }
-
-  Future<void> _incrementCounter() async {
-    developer.log('Increment counter!');
-    // Ensure we've loaded the updated count from the background isolate.
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.reload();
-
-    setState(() {
-      _counter++;
+    DataStore.shared.getReminderList().then((value) {
+      setState(() {
+        reminderList = value;
+      });
     });
-  }
-
-  // The background
-  static SendPort? uiSendPort;
-
-  // The callback for our alarm
-  static Future<void> callback() async {
-    developer.log('Alarm fired!');
-    // Get the previous cached count and increment it.
-    final prefs = await SharedPreferences.getInstance();
-    final currentCount = prefs.getInt(countKey) ?? 0;
-    await prefs.setInt(countKey, currentCount + 1);
-
-    // This will be null if we're running in the background.
-    uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
-    uiSendPort?.send(null);
   }
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme.headline4;
-    return Container(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Alarm fired $_counter times',
-              style: textStyle,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Total alarms fired: ',
-                  style: textStyle,
+    return Scaffold(
+      body: Stack(
+        children: [
+          SafeArea(
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(top: 17.0, left: 17.0, right: 17.0),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    // const Text(
+                    //   'This is a demo of how to use local notifications in Flutter.',
+                    //   style: TextStyle(fontSize: 20),
+                    // ),
+                    Expanded(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          // physics: ,
+                          itemBuilder: (context, index) {
+                            return Center(
+                              child: Card(
+                                child: ListTile(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ReminderDetails(
+                                                      activity:
+                                                          reminderList[index]
+                                                              ["body"],
+                                                      dateTime: reminderList[
+                                                              index]
+                                                          ["payload"]))).then(
+                                          (payload) {
+                                        if (payload != null) {
+                                          reminderList.removeAt(index);
+                                          reminderList.add({
+                                            "id": payload.id,
+                                            "body": payload.body,
+                                            "payload": payload.payload,
+                                            "title": payload.title,
+                                          });
+                                          DataStore.shared.setReminderFullList(
+                                              reminderList);
+
+                                          DataStore.shared
+                                              .getReminderList()
+                                              .then((value) {
+                                            setState(() {
+                                              reminderList = value;
+                                            });
+                                          });
+                                        }
+                                      });
+                                      ;
+                                    },
+                                    leading:
+                                        CircleAvatar(child: Icon(Icons.alarm)),
+                                    title: Text(
+                                        reminderList[index]["body"].toString()),
+                                    subtitle: Text(reminderList[index]
+                                            ["payload"]
+                                        .toString().substring(0,16)),
+                                    trailing: GestureDetector(
+                                      onTap: () async {
+                                        print(index);
+                                        reminderList.removeAt(index);
+                                        await DataStore.shared
+                                            .setReminderFullList(reminderList);
+                                        setState(() {});
+                                      },
+                                      child: CircleAvatar(
+                                        child: Icon(
+                                          Icons.close,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
+                                        radius: 10,
+                                        backgroundColor: Colors.red[800],
+                                      ),
+                                    )),
+                              ),
+                            );
+                          },
+                          itemCount: reminderList.length),
+                    )
+                  ],
                 ),
-                Text(
-                  // prefs.getInt(countKey).toString() ?? '',
-                  "10",
-                  key: const ValueKey('BackgroundCountText'),
-                  style: textStyle,
-                ),
-              ],
-            ),
-            ElevatedButton(
-              key: const ValueKey('RegisterOneShotAlarm'),
-              onPressed: () async {
-                await AndroidAlarmManager.oneShot(
-                  const Duration(seconds: 5),
-                  // Ensure we have a unique alarm ID.
-                  Random().nextInt(pow(2, 31) as int),
-                  callback,
-                  exact: true,
-                  wakeup: true,
-                );
-              },
-              child: const Text(
-                'Schedule OneShot Alarm',
               ),
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
+            child: Align(
+              alignment: Alignment.bottomRight,
+              heightFactor: 130.0,
+              widthFactor: 130.0,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    backgroundColor: kSecondaryColor),
+                onPressed: () {
+                  Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ReminderDetails()))
+                      .then((payload) {
+                    if (payload != null) {
+                      DataStore.shared.setReminderList(payload);
+
+                      DataStore.shared.getReminderList().then((value) {
+                        setState(() {
+                          reminderList = value;
+                        });
+                      });
+                    }
+
+                    // DataStore.shared.getReminderList().then((value) {
+                    //   setState(() {
+                    //     reminderList = value;
+                    //   });
+                    // });
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: const Icon(Icons.add, size: 30.0),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
+  }
+
+  void listenToNotification() =>
+      service.onNotificationClick.stream.listen(onNoticationListener);
+
+  void onNoticationListener(String? payload) {
+    if (payload != null && payload.isNotEmpty) {
+      print('payload $payload');
+
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: ((context) => SecondScreen(payload: payload))));
+    }
   }
 }
