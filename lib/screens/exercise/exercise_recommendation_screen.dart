@@ -156,6 +156,11 @@ class _ExerciseRecommendationScreenState
                             ),
                           ))
                       .toList(),
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please select category.';
+                    }
+                  },
                   onChanged: (value) {
                     //Do something when changing the item if you want.
                   },
@@ -207,6 +212,11 @@ class _ExerciseRecommendationScreenState
                             ),
                           ))
                       .toList(),
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please select activity level.';
+                    }
+                  },
                   onChanged: (value) {
                     //Do something when changing the item if you want.
                   },
@@ -258,6 +268,11 @@ class _ExerciseRecommendationScreenState
                             ),
                           ))
                       .toList(),
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please select diabetes type.';
+                    }
+                  },
                   onChanged: (value) {
                     //Do something when changing the item if you want.
                   },
@@ -272,10 +287,10 @@ class _ExerciseRecommendationScreenState
                   onTap: () async{
                     if (_formKey.currentState!.validate()){
                       _formKey.currentState!.save();
+                      Exercise exercise = Exercise(lifestyle: lifestyle, activity: activity, category: category, diabetes: diabetes);
+                      var list = await ExerciseService.getExerciseRecommendationList(exercise);
+                      print(list);
                     }
-                    Exercise exercise = Exercise(lifestyle: lifestyle, activity: activity, category: category, diabetes: diabetes);
-                    var list = await ExerciseService.getExerciseRecommendationList(exercise);
-                    print(list);
                   },
                   child: Container(
                     decoration: BoxDecoration(

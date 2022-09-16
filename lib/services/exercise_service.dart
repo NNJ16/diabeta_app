@@ -51,13 +51,20 @@ class ExerciseService {
     String prediabetes="", diabetes="";
     
     if(exercise.diabetes == "Prediabetes"){
-      prediabetes = "prediabetes";
+      prediabetes = "prediabetic";
     }else if(exercise.diabetes == "Diabetes"){
-      diabetes = "diabetes";
-    }else{
-      prediabetes = "nonprediabetes";
-      diabetes = "nondiabetes";
+      prediabetes = "prediabetic";
+      diabetes = "diabetic";
+    }else if(exercise.diabetes == "None"){
+      prediabetes = "nonprediabetic";
+      diabetes = "nondiabetic";
     }
+
+    print(exercise.lifestyle.toLowerCase());
+    print(exercise.category.toLowerCase());
+    print(exercise.activity.toLowerCase());
+    print(prediabetes);
+    print(diabetes);
 
     var data = {
       "Lifestyle": exercise.lifestyle.toLowerCase(),
@@ -65,6 +72,11 @@ class ExerciseService {
       "Activity-level": exercise.activity.toLowerCase(),
       "PreDiabetic": prediabetes,
       "Diabetic": diabetes
+    //       "Lifestyle" : "gym",
+    // "Category" : "cardio",
+    // "Activity-level": "sedentary",
+    // "PreDiabetic" : "prediabetic",
+    // "Diabetic" : "" 
     };
 
     var response = await Dio().post(api_url + "/exercise/recommendation",
