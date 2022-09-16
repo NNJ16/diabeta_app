@@ -1,7 +1,7 @@
 import 'package:diabeta_app/model/exercise_cal.dart';
 import 'package:diabeta_app/screens/exercise/components/exercise_cal_card.dart';
 import 'package:diabeta_app/screens/food/components/food_cal_card.dart';
-import 'package:diabeta_app/services/exercise_calc_service.dart';
+import 'package:diabeta_app/services/exercise_service.dart';
 import 'package:diabeta_app/services/food_calc_service.dart';
 import "package:flutter/material.dart";
 import 'package:outline_search_bar/outline_search_bar.dart';
@@ -45,7 +45,7 @@ class _ExersiceCalculatorScreenState extends State<ExersiceCalculatorScreen> {
         ),
         _query != ""
             ? FutureBuilder(
-                future: ExerciseCalcService.getExerciseDetails(_query),
+                future: ExerciseService.getExerciseDetails(_query),
                 builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     int length = snapshot.data!.length;
@@ -72,10 +72,10 @@ class _ExersiceCalculatorScreenState extends State<ExersiceCalculatorScreen> {
                 ),
                 Container(
                     height: 150,
-                    width: 150,
+                    width: 170,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/images/search.jpg"),
+                        image: AssetImage("assets/images/search.png"),
                         fit: BoxFit.fill,
                         alignment: Alignment.topCenter,
                       ),
@@ -84,6 +84,9 @@ class _ExersiceCalculatorScreenState extends State<ExersiceCalculatorScreen> {
                           topRight: Radius.circular(20)),
                     ),
                     child: Center(),
+                  ),
+                  const SizedBox(
+                    height: 16,
                   ),
                   const Text("Search for exercises", style: TextStyle(fontSize: 16, color: Colors.black38),)
               ],

@@ -1,6 +1,5 @@
 import 'package:diabeta_app/components/category_card.dart';
 import 'package:diabeta_app/components/constants.dart';
-import 'package:diabeta_app/components/diabetes_test_type.dart';
 import 'package:diabeta_app/screens/diabetes/screens/quiz_screen.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,6 @@
 import 'package:diabeta_app/components/constants.dart';
 import 'package:diabeta_app/screens/exercise/exercise_calculator_screen.dart';
-import 'package:diabeta_app/screens/food/food_calculator_screen.dart';
-import 'package:diabeta_app/screens/food/food_recommendation_screen.dart';
+import 'package:diabeta_app/screens/exercise/exercise_recommendation_screen.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseMainScreen extends StatefulWidget {
@@ -69,7 +68,7 @@ class _ExerciseMainScreenState extends State<ExerciseMainScreen> {
         ),
         selectedIndex == 0 ?
         const ExersiceCalculatorScreen():
-        const FoodRecommendationScreen()
+        const ExerciseRecommendationScreen()
       ],
     );
   }

@@ -1,7 +1,6 @@
 import 'package:diabeta_app/components/constants.dart';
 import 'package:diabeta_app/model/diabetes_ques.dart';
 import 'package:diabeta_app/model/diabetes_questions.dart';
-import 'package:diabeta_app/services/diabates_predict_service.dart';
 import 'package:flutter/material.dart';
 
 class QCard1 extends StatefulWidget {

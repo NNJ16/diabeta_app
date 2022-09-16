@@ -123,7 +123,7 @@ class _MenuCardState extends State<MenuCard> {
             const SizedBox(
               height: 20,
             ),
-            const Text('WEEKLY ENTRIES', style: TextStyle(fontWeight: FontWeight.bold,),),
+            const Text('MONTHLY ENTRIES', style: TextStyle(fontWeight: FontWeight.bold,),),
             const SizedBox(
               height: 20,
             ),
@@ -206,7 +206,7 @@ class _MenuCardState extends State<MenuCard> {
             const SizedBox(
               height: 20,
             ),
-            const Text('WEEKLY ENTRIES', style: TextStyle(fontWeight: FontWeight.bold,),),
+            const Text('YEARLY ENTRIES', style: TextStyle(fontWeight: FontWeight.bold,),),
             const SizedBox(
               height: 20,
             ),

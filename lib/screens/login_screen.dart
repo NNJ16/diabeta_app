@@ -110,11 +110,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           'Login',
                           style: TextStyle(fontSize: 16),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          shape: const StadiumBorder(),
-                          elevation: 0,
-                          primary: kPrimaryColor,
-                        ),
+                        // style: ElevatedButton.styleFrom(
+                        //   shape: const StadiumBorder(),
+                        //   elevation: 0,
+                        //   primary: kPrimaryColor,
+                        // ),
                       ),
                     ),
                   ),
@@ -140,11 +140,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           'Register',
                           style: TextStyle(fontSize: 16),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          shape: const StadiumBorder(),
-                          elevation: 0,
-                          primary: kSecondaryColor,
-                        ),
+                        // style: ElevatedButton.styleFrom(
+                        //   shape: const StadiumBorder(),
+                        //   elevation: 0,
+                        //   primary: kSecondaryColor,
+                        // ),
                       ),
                     ),
                   ),

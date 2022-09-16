@@ -70,10 +70,10 @@ class _FoodCalculatorScreenState extends State<FoodCalculatorScreen> {
                 ),
                 Container(
                     height: 150,
-                    width: 150,
+                    width: 170,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/images/search.jpg"),
+                        image: AssetImage("assets/images/search.png"),
                         fit: BoxFit.fill,
                         alignment: Alignment.topCenter,
                       ),
@@ -82,6 +82,9 @@ class _FoodCalculatorScreenState extends State<FoodCalculatorScreen> {
                           topRight: Radius.circular(20)),
                     ),
                     child: Center(),
+                  ),
+                  const SizedBox(
+                    height: 16,
                   ),
                   const Text("Search for foods", style: TextStyle(fontSize: 16, color: Colors.black38),)
               ],
