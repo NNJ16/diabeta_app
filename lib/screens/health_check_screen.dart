@@ -1,6 +1,9 @@
 import 'package:diabeta_app/components/category_card.dart';
 import 'package:diabeta_app/components/constants.dart';
 import 'package:diabeta_app/screens/diabetes/screens/quiz_screen.dart';
+import 'package:diabeta_app/screens/health/eye_risk_screen.dart';
+import 'package:diabeta_app/screens/health/heart_risk_screen.dart';
+import 'package:diabeta_app/screens/health/kidney_risk_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'diabetes/screens/quiz_screen1.dart';
@@ -140,7 +143,7 @@ class _HealthCheckScreenState extends State<HealthCheckScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const QuizScreen()),
+                MaterialPageRoute(builder: (context) => const HeartRiskScreen()),
               );
             },
           ),
@@ -152,7 +155,7 @@ class _HealthCheckScreenState extends State<HealthCheckScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const QuizScreen()),
+                MaterialPageRoute(builder: (context) => const EyeRiskScreen()),
               );
             },
           ),
@@ -164,7 +167,7 @@ class _HealthCheckScreenState extends State<HealthCheckScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const QuizScreen()),
+                MaterialPageRoute(builder: (context) => const KidneyRiskScreen()),
               );
             },
           ),

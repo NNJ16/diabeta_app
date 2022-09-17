@@ -11,7 +11,7 @@ class DiabeticQuestions{
     DiabetesQues(qno: 6, question: "Select your insulin level?", type: QuesType.withSlider, minValue: 1, maxValue: 200, defaultValue: 20, unit: "muU/ml", subText: "Your Insulin"),
   ]; 
 
-    static List sampleQuiz2 =<DiabetesQues>[
+  static List sampleQuiz2 =<DiabetesQues>[
     DiabetesQues(qno: 1, question: "What is your gender?", type: QuesType.withTwoButton, options: ["Male", "Female"], defaultValue: 0),
     DiabetesQues(qno: 2, question: "How old are you?", type: QuesType.withSlider, minValue: 1, maxValue: 100, defaultValue: 20, unit: "years", subText: "Your Age"),
     DiabetesQues(qno: 3, question: "Do you have Polyuria?", type: QuesType.withTwoButton, options: ["Yes", "No"], defaultValue: 0, img: "poliyuria.png", des: 'Polyuria is defined as the frequent passage of large volumes of urine – more than 3 litres a day compared to the normal daily urine output in adults of about 1 to 2 litres.'),
