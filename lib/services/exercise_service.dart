@@ -72,11 +72,6 @@ class ExerciseService {
       "Activity-level": exercise.activity.toLowerCase(),
       "PreDiabetic": prediabetes,
       "Diabetic": diabetes
-    //       "Lifestyle" : "gym",
-    // "Category" : "cardio",
-    // "Activity-level": "sedentary",
-    // "PreDiabetic" : "prediabetic",
-    // "Diabetic" : "" 
     };
 
     var response = await Dio().post(api_url + "/exercise/recommendation",
@@ -84,6 +79,7 @@ class ExerciseService {
           headers: {"Content-Type": "application/json"},
         ),
         data: jsonEncode(data));
+        print(response.data);
     return response.data;
   }
 }

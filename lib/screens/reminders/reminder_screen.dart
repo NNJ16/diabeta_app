@@ -34,8 +34,34 @@ class _ReminderScreenState extends State<ReminderScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          SafeArea(
-            child: Padding(
+          Scaffold(
+            floatingActionButton: FloatingActionButton(
+                backgroundColor: kSecondaryColor,
+                onPressed: () {
+                  Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ReminderDetails()))
+                      .then((payload) {
+                    if (payload != null) {
+                      DataStore.shared.setReminderList(payload);
+
+                      DataStore.shared.getReminderList().then((value) {
+                        setState(() {
+                          reminderList = value;
+                        });
+                      });
+                    }
+
+                    // DataStore.shared.getReminderList().then((value) {
+                    //   setState(() {
+                    //     reminderList = value;
+                    //   });
+                    // });
+                  });
+                },
+                child: const Icon(Icons.add)),
+            body: Padding(
               padding:
                   const EdgeInsets.only(top: 17.0, left: 17.0, right: 17.0),
               child: Center(
@@ -88,7 +114,6 @@ class _ReminderScreenState extends State<ReminderScreen> {
                                           });
                                         }
                                       });
-                                      ;
                                     },
                                     leading:
                                         CircleAvatar(child: Icon(Icons.alarm)),
@@ -96,7 +121,8 @@ class _ReminderScreenState extends State<ReminderScreen> {
                                         reminderList[index]["body"].toString()),
                                     subtitle: Text(reminderList[index]
                                             ["payload"]
-                                        .toString().substring(0,16)),
+                                        .toString()
+                                        .substring(0, 16)),
                                     trailing: GestureDetector(
                                       onTap: () async {
                                         print(index);
@@ -125,46 +151,46 @@ class _ReminderScreenState extends State<ReminderScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
-            child: Align(
-              alignment: Alignment.bottomRight,
-              heightFactor: 130.0,
-              widthFactor: 130.0,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(),
-                    backgroundColor: kSecondaryColor),
-                onPressed: () {
-                  Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ReminderDetails()))
-                      .then((payload) {
-                    if (payload != null) {
-                      DataStore.shared.setReminderList(payload);
+          // Padding(
+          //   padding: const EdgeInsets.only(bottom: 12.0),
+          //   child: Align(
+          //     alignment: Alignment.bottomRight,
+          //     heightFactor: 130.0,
+          //     widthFactor: 130.0,
+          //     child: ElevatedButton(
+          //       style: ElevatedButton.styleFrom(
+          //           shape: const CircleBorder(),
+          //           backgroundColor: kSecondaryColor),
+          //       onPressed: () {
+          //         Navigator.push(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                     builder: (context) => ReminderDetails()))
+          //             .then((payload) {
+          //           if (payload != null) {
+          //             DataStore.shared.setReminderList(payload);
 
-                      DataStore.shared.getReminderList().then((value) {
-                        setState(() {
-                          reminderList = value;
-                        });
-                      });
-                    }
+          //             DataStore.shared.getReminderList().then((value) {
+          //               setState(() {
+          //                 reminderList = value;
+          //               });
+          //             });
+          //           }
 
-                    // DataStore.shared.getReminderList().then((value) {
-                    //   setState(() {
-                    //     reminderList = value;
-                    //   });
-                    // });
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: const Icon(Icons.add, size: 30.0),
-                ),
-              ),
-            ),
-          ),
+          //           // DataStore.shared.getReminderList().then((value) {
+          //           //   setState(() {
+          //           //     reminderList = value;
+          //           //   });
+          //           // });
+          //         });
+          //       },
+          //       child: Padding(
+          //         padding: const EdgeInsets.all(10.0),
+          //         child: const Icon(Icons.add, size: 30.0),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

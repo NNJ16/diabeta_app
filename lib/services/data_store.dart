@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:diabeta_app/model/ReceivedNotification.dart';
-import 'package:diabeta_app/screens/reminders/reminder_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DataStore {
@@ -10,25 +9,7 @@ class DataStore {
 
   static DataStore get shared => _instance;
 
-  static Future<SharedPreferences> _store = SharedPreferences.getInstance();
-
-  // setInviteBranchId(String id) {
-  //   _store.then((store) {
-  //     store.setString("inviteBranchId", id);
-  //   });
-  // }
-
-  // deleteInviteBranchId() {
-  //   _store.then((store) {
-  //     store.remove("inviteBranchId");
-  //   });
-  // }
-
-  // Future<String> getInviteBranchId() async {
-  //   final SharedPreferences store = await _store;
-  //   final inviteBranchId = store.getString("inviteBranchId");
-  //   return inviteBranchId;
-  // }
+  static final Future<SharedPreferences> _store = SharedPreferences.getInstance();
 
   List<dynamic> _reminders = [];
 

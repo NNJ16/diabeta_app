@@ -21,6 +21,8 @@ class _ExerciseRecommendationScreenState
     'Diabetes',
   ];
 
+  bool isLoading = false;
+
   final List<String> lifeStyleList = ['Yoga', 'Gym'];
 
   final List<String> activityList = [
@@ -30,11 +32,18 @@ class _ExerciseRecommendationScreenState
     'Very Active',
   ];
 
-  final List<String> categoryList = [
+  List<String> categoryList = [];
+
+  final List<String> categoryList1 = [
     'Cardio',
     'Legs+Abs',
     'Upper',
-    'Yoga Poses',
+    'Stretching	'
+  ];
+
+  final List<String> categoryList2 = [
+    'Cardio',
+    'Yoga_Poses',
     'Meditation',
     'Stretching	'
   ];
@@ -105,6 +114,15 @@ class _ExerciseRecommendationScreenState
                   },
                   onChanged: (value) {
                     //Do something when changing the item if you want.
+                    if (value == "Gym") {
+                      setState(() {
+                        categoryList = categoryList1;
+                      });
+                    } else {
+                      setState(() {
+                        categoryList = categoryList2;
+                      });
+                    }
                   },
                   onSaved: (value) {
                     lifestyle = value.toString();
@@ -219,7 +237,7 @@ class _ExerciseRecommendationScreenState
                     //Do something when changing the item if you want.
                   },
                   onSaved: (value) {
-                    activity = value.toString();
+                    activity = value.toString().replaceAll(' ', '');
                   },
                 ),
                 const SizedBox(height: 8),
@@ -281,41 +299,75 @@ class _ExerciseRecommendationScreenState
                 const SizedBox(
                   height: 24,
                 ),
-                InkWell(
-                  onTap: () async {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
-                      Exercise exercise = Exercise(
-                          lifestyle: lifestyle,
-                          activity: activity,
-                          category: category,
-                          diabetes: diabetes);
-                      var list =
-                          await ExerciseService.getExerciseRecommendationList(
-                              exercise);
+                !isLoading
+                    ? InkWell(
+                        onTap: () async {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
 
-                      if (jsonDecode(list).length > 0) {
-                        showBottomSheet(jsonDecode(list));
-                      }
-                    }
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: kPrimaryColor,
-                    ),
-                    height: 45,
-                    width: double.infinity,
-                    child: const Center(
-                        child: Text(
-                      "GENERATE",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
-                    )),
-                  ),
-                ),
+                            setState(() {
+                              isLoading = true;
+                            });
+                            Exercise exercise = Exercise(
+                                lifestyle: lifestyle,
+                                activity: activity,
+                                category: category,
+                                diabetes: diabetes);
+                            var list = await ExerciseService
+                                .getExerciseRecommendationList(exercise);
+
+                            if (list == "") {
+                              setState(() {
+                                isLoading = false;
+                              });
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text("Exercises not found."),
+                                duration: Duration(milliseconds: 2000),
+                              ));
+                            } else {
+                              if (jsonDecode(list).length > 0) {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                showBottomSheet(jsonDecode(list));
+                              }
+                            }
+                          }
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: kPrimaryColor,
+                          ),
+                          height: 45,
+                          width: double.infinity,
+                          child: const Center(
+                              child: Text(
+                            "GENERATE",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          )),
+                        ),
+                      )
+                    : Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.teal[200],
+                        ),
+                        height: 45,
+                        width: double.infinity,
+                        child: const Center(
+                            child: Text(
+                          "GENERATING...",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16),
+                        )),
+                      ),
               ],
             ),
           ),
