@@ -1,3 +1,4 @@
+import 'package:diabeta_app/components/constants.dart';
 import 'package:diabeta_app/model/log_count.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +19,15 @@ class _MenuCardState extends State<MenuCard> {
         height: 100,
         width: double.infinity,
         decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: <Color>[
+              kPrimaryColor,
+              // Color.fromARGB(255, 96, 207, 92),
+              Color.fromARGB(255, 19, 170, 11),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           color: Colors.teal[200],
         ),
@@ -36,11 +46,27 @@ class _MenuCardState extends State<MenuCard> {
             const SizedBox(
               height: 16,
             ),
-            Text('LATEST CHECK '+ DateFormat('MM/dd/yyyy').format(widget.logCount.dateTime ?? DateTime.now()) +' ' +DateFormat.jm().format(widget.logCount.dateTime ?? DateTime.now())),
+            Text(
+              'LATEST CHECK ' +
+                  DateFormat('MM/dd/yyyy')
+                      .format(widget.logCount.dateTime ?? DateTime.now()) +
+                  ' ' +
+                  DateFormat.jm()
+                      .format(widget.logCount.dateTime ?? DateTime.now()),
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
             const SizedBox(
               height: 20,
             ),
-            const Text('WEEKLY ENTRIES', style: TextStyle(fontWeight: FontWeight.bold,),),
+            const Text(
+              'WEEKLY ENTRIES',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -51,18 +77,25 @@ class _MenuCardState extends State<MenuCard> {
                 children: [
                   Column(
                     children: [
-                      const Text('In Range'),
+                      const Text(
+                        'In Range',
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                       Row(
                         children: [
                           Icon(
                             Icons.thumb_up,
                             size: 30,
-                            color: Colors.green[900],
+                            color: Colors.white,
                           ),
                           Text(
                             widget.logCount.inrange.toString(),
-                            style:  const TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
@@ -70,18 +103,25 @@ class _MenuCardState extends State<MenuCard> {
                   ),
                   Column(
                     children: [
-                      const Text('Below'),
+                      const Text(
+                        'Below',
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                       Row(
                         children: [
                           const Icon(
                             Icons.arrow_downward,
                             size: 30,
-                            color: Colors.red,
+                            color: Colors.white,
                           ),
                           Text(
                             widget.logCount.below.toString(),
                             style: const TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
@@ -89,18 +129,25 @@ class _MenuCardState extends State<MenuCard> {
                   ),
                   Column(
                     children: [
-                      const Text('Above'),
+                      const Text(
+                        'Above',
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                       Row(
                         children: [
                           const Icon(
                             Icons.arrow_upward,
                             size: 30,
-                            color: Colors.red,
+                            color: Colors.white,
                           ),
                           Text(
                             widget.logCount.above.toString(),
                             style: const TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
@@ -111,7 +158,7 @@ class _MenuCardState extends State<MenuCard> {
             ),
           ],
         );
-        case 1:
+      case 1:
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -119,11 +166,27 @@ class _MenuCardState extends State<MenuCard> {
             const SizedBox(
               height: 16,
             ),
-            Text('LATEST CHECK '+ DateFormat('MM/dd/yyyy').format(widget.logCount.dateTime ?? DateTime.now()) +' ' +DateFormat.jm().format(widget.logCount.dateTime ?? DateTime.now())),
+            Text(
+              'LATEST CHECK ' +
+                  DateFormat('MM/dd/yyyy')
+                      .format(widget.logCount.dateTime ?? DateTime.now()) +
+                  ' ' +
+                  DateFormat.jm()
+                      .format(widget.logCount.dateTime ?? DateTime.now()),
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
             const SizedBox(
               height: 20,
             ),
-            const Text('MONTHLY ENTRIES', style: TextStyle(fontWeight: FontWeight.bold,),),
+            const Text(
+              'MONTHLY ENTRIES',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -134,18 +197,25 @@ class _MenuCardState extends State<MenuCard> {
                 children: [
                   Column(
                     children: [
-                      const Text('In Range'),
+                      const Text(
+                        'In Range',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                       Row(
                         children: [
                           Icon(
                             Icons.thumb_up,
                             size: 30,
-                            color: Colors.green[900],
+                            color: Colors.white,
                           ),
                           Text(
                             widget.logCount.inrange.toString(),
-                            style:  const TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
@@ -153,18 +223,25 @@ class _MenuCardState extends State<MenuCard> {
                   ),
                   Column(
                     children: [
-                      const Text('Below'),
+                      const Text(
+                        'Below',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                       Row(
                         children: [
                           const Icon(
                             Icons.arrow_downward,
                             size: 30,
-                            color: Colors.red,
+                            color: Colors.white,
                           ),
                           Text(
                             widget.logCount.below.toString(),
                             style: const TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
@@ -172,18 +249,25 @@ class _MenuCardState extends State<MenuCard> {
                   ),
                   Column(
                     children: [
-                      const Text('Above'),
+                      const Text(
+                        'Above',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                       Row(
                         children: [
                           const Icon(
                             Icons.arrow_upward,
                             size: 30,
-                            color: Colors.red,
+                            color: Colors.white,
                           ),
                           Text(
                             widget.logCount.above.toString(),
                             style: const TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
@@ -194,7 +278,7 @@ class _MenuCardState extends State<MenuCard> {
             ),
           ],
         );
-        case 2:
+      case 2:
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -202,11 +286,27 @@ class _MenuCardState extends State<MenuCard> {
             const SizedBox(
               height: 16,
             ),
-            Text('LATEST CHECK '+ DateFormat('MM/dd/yyyy').format(widget.logCount.dateTime ?? DateTime.now()) +' ' +DateFormat.jm().format(widget.logCount.dateTime ?? DateTime.now())),
+            Text(
+              'LATEST CHECK ' +
+                  DateFormat('MM/dd/yyyy')
+                      .format(widget.logCount.dateTime ?? DateTime.now()) +
+                  ' ' +
+                  DateFormat.jm()
+                      .format(widget.logCount.dateTime ?? DateTime.now()),
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
             const SizedBox(
               height: 20,
             ),
-            const Text('YEARLY ENTRIES', style: TextStyle(fontWeight: FontWeight.bold,),),
+            const Text(
+              'YEARLY ENTRIES',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -217,18 +317,25 @@ class _MenuCardState extends State<MenuCard> {
                 children: [
                   Column(
                     children: [
-                      const Text('In Range'),
+                      const Text(
+                        'In Range',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                       Row(
                         children: [
                           Icon(
                             Icons.thumb_up,
                             size: 30,
-                            color: Colors.green[900],
+                            color: Colors.white,
                           ),
                           Text(
                             widget.logCount.inrange.toString(),
-                            style:  const TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
@@ -236,18 +343,25 @@ class _MenuCardState extends State<MenuCard> {
                   ),
                   Column(
                     children: [
-                      const Text('Below'),
+                      const Text(
+                        'Below',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                       Row(
                         children: [
                           const Icon(
                             Icons.arrow_downward,
                             size: 30,
-                            color: Colors.red,
+                            color: Colors.white,
                           ),
                           Text(
                             widget.logCount.below.toString(),
                             style: const TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
@@ -255,18 +369,25 @@ class _MenuCardState extends State<MenuCard> {
                   ),
                   Column(
                     children: [
-                      const Text('Above'),
+                      const Text(
+                        'Above',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                       Row(
                         children: [
                           const Icon(
                             Icons.arrow_upward,
                             size: 30,
-                            color: Colors.red,
+                            color: Colors.white,
                           ),
                           Text(
                             widget.logCount.above.toString(),
                             style: const TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),

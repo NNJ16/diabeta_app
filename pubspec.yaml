@@ -58,6 +58,7 @@ dependencies:
   flutter_local_notifications: ^10.0.0
   pdf: ^3.8.3
   printing: ^5.9.3
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:
