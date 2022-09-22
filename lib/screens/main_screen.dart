@@ -4,6 +4,7 @@ import 'package:diabeta_app/screens/food/food_main_screen.dart';
 import 'package:diabeta_app/screens/health_check_screen.dart';
 import 'package:diabeta_app/screens/dashboard_screen.dart';
 import 'package:diabeta_app/screens/reminders/reminder_screen.dart';
+import 'package:diabeta_app/screens/reports/report_screen.dart';
 import 'package:diabeta_app/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import '../components/constants.dart';
@@ -30,6 +31,7 @@ class _MainScreenState extends State<MainScreen> {
       const FoodMainScreen(),
       const ExerciseMainScreen(),
       const ReminderScreen(),
+      const ReportScreen(),
       const SettingsScreen()
     ];
     
@@ -227,6 +229,27 @@ class _MainScreenState extends State<MainScreen> {
                 title: Row(
                   children: const [
                     Icon(
+                      Icons.timeline,
+                      color: kPrimaryColor,
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Text('Report')
+                  ],
+                ),
+                onTap: () {
+                  setState(() {
+                    _selectedIndex = 6;
+                    _title = "Reports";
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Row(
+                  children: const [
+                    Icon(
                       Icons.settings,
                       color: kPrimaryColor,
                     ),
@@ -238,7 +261,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 onTap: () {
                   setState(() {
-                    _selectedIndex = 6;
+                    _selectedIndex = 7;
                     _title = "Settings";
                   });
                   Navigator.pop(context);
