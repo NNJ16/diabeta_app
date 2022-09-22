@@ -32,9 +32,9 @@ class _ExerciseMainScreenState extends State<ExerciseMainScreen> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    border: const Border(
-                        top: BorderSide(width: 1, color: Colors.white),
-                        right: BorderSide(width: 1, color: Colors.white)),
+                    // border: const Border(
+                    //     top: BorderSide(width: 1, color: Colors.white),
+                    //     right: BorderSide(width: 1, color: Colors.white)),
                     color: selectedIndex == 0 ? Colors.teal[300] : kPrimaryColor,
                   ),
                   height: 50,
@@ -53,8 +53,8 @@ class _ExerciseMainScreenState extends State<ExerciseMainScreen> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    border: const Border(
-                        top: BorderSide(width: 1, color: Colors.white)),
+                    // border: const Border(
+                    //     top: BorderSide(width: 1, color: Colors.white)),
                     color: selectedIndex == 1 ? Colors.teal[300] : kPrimaryColor,
                   ),
                   height: 50,

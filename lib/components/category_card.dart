@@ -21,12 +21,12 @@ class _CategoryCardState extends State<CategoryCard> {
             child: Column(
               children: [
                 Container(
-                  height: 150,
+                  height: MediaQuery.of(context).size.height/5,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(widget.imgPath),
-                      fit: BoxFit.fill,
+                      fit: BoxFit.fitWidth,
                       alignment: Alignment.topCenter,
                     ),
                     borderRadius: const BorderRadius.only(

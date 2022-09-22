@@ -1,4 +1,5 @@
 import 'package:diabeta_app/screens/diabetes/screens/logbook_screen.dart';
+import 'package:diabeta_app/screens/diabetes/screens/print_log_screen.dart';
 import 'package:diabeta_app/screens/exercise/exercise_main_screen.dart';
 import 'package:diabeta_app/screens/food/food_main_screen.dart';
 import 'package:diabeta_app/screens/health_check_screen.dart';
@@ -34,8 +35,8 @@ class _MainScreenState extends State<MainScreen> {
       const ReportScreen(),
       const SettingsScreen()
     ];
-    
-    void setPeriodForLogbook(String p){
+
+    void setPeriodForLogbook(String p) {
       setState(() {
         period = p;
       });
@@ -46,19 +47,31 @@ class _MainScreenState extends State<MainScreen> {
         title: Text(_title),
         backgroundColor: kPrimaryColor,
         elevation: 0,
-        actions: [
-          _title != "Logbook"
-              ? IconButton(
+        actions: _title != "Logbook"
+            ? [
+                IconButton(
                   icon: const Icon(Icons.notifications),
                   onPressed: () {},
-                )
-              : IconButton(
+                ),
+              ]
+            : [
+                IconButton(
                   icon: const Icon(Icons.filter_alt),
                   onPressed: () {
                     showBottomSheet(setPeriodForLogbook, period);
                   },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.share),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PrintLogScreen()),
+                    );
+                  },
                 )
-        ],
+              ],
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
       drawer: Container(
@@ -326,10 +339,9 @@ class _MainScreenState extends State<MainScreen> {
                               child: const Text(
                                 'Close',
                                 style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.teal,
-                                  fontWeight: FontWeight.bold
-                                ),
+                                    fontSize: 16,
+                                    color: Colors.teal,
+                                    fontWeight: FontWeight.bold),
                               ),
                               onTap: () {
                                 Navigator.pop(context);
@@ -344,10 +356,9 @@ class _MainScreenState extends State<MainScreen> {
                               child: const Text(
                                 'Done',
                                 style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.teal,
-                                  fontWeight: FontWeight.bold
-                                ),
+                                    fontSize: 16,
+                                    color: Colors.teal,
+                                    fontWeight: FontWeight.bold),
                               ),
                               onTap: () {
                                 callBack(period);
