@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:diabeta_app/model/diabetes_questions.dart';
+import 'package:diabeta_app/model/diabetes_ques_ans.dart';
 import 'package:diabeta_app/model/health_ques_ans.dart';
 import 'package:dio/dio.dart';
 

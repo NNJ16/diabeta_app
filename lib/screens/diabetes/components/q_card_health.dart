@@ -1,6 +1,6 @@
 import 'package:diabeta_app/components/constants.dart';
 import 'package:diabeta_app/model/diabetes_ques.dart';
-import 'package:diabeta_app/model/diabetes_questions.dart';
+import 'package:diabeta_app/model/diabetes_ques_ans.dart';
 import 'package:diabeta_app/model/health_ques_ans.dart';
 import 'package:flutter/material.dart';
 

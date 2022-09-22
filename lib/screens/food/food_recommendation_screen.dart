@@ -10,7 +10,7 @@ class FoodRecommendationScreen extends StatefulWidget {
 }
 
 class _FoodRecommendationScreenState extends State<FoodRecommendationScreen> {
-final List<String> diabetesList = [ ];
+  final List<String> diabetesList = [ ];
 
   bool isLoading = false;
 

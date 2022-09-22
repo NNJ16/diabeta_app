@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:diabeta_app/model/diabetes_questions.dart';
+import 'package:diabeta_app/model/diabetes_ques_ans.dart';
 import 'package:dio/dio.dart';
 
 class DiabatesPredictService {
@@ -17,6 +17,29 @@ class DiabatesPredictService {
       "PartialParesis": DiabeticQuestions.sampleQuiz2[4].defaultValue,
       "Alopecia": DiabeticQuestions.sampleQuiz2[8].defaultValue,
       "VisualBlurring": DiabeticQuestions.sampleQuiz2[9].defaultValue
+    };
+
+    var response = await Dio().post(api_url + "/prediabetes/predict",
+        options: Options(
+          headers: {"Content-Type": "application/json"},
+        ),
+        data: jsonEncode(data));
+    return response.data;
+  }
+
+  static Future<String> getDiabatesPrediction() async {
+    double weight = DiabeticQuestions.sampleQuiz1[3].defaultValue;
+    double hieght = DiabeticQuestions.sampleQuiz1[2].defaultValue/100.0;
+
+    double bmi = weight/ (hieght * hieght);
+
+    var data = {
+      "Age": DiabeticQuestions.sampleQuiz1[1].defaultValue,
+      "Glucose": DiabeticQuestions.sampleQuiz1[4].defaultValue,
+      "BloodPressure": DiabeticQuestions.sampleQuiz1[5].defaultValue,
+      "Insulin": DiabeticQuestions.sampleQuiz1[6].defaultValue,
+      "SkinThickness": DiabeticQuestions.sampleQuiz1[7].defaultValue,
+      "BMI": bmi
     };
 
     var response = await Dio().post(api_url + "/diabetes/predict",

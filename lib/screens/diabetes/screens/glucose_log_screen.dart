@@ -5,7 +5,6 @@ import 'package:diabeta_app/services/glucose_log_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../../../components/yes_no_model.dart';
 
 class GlucoseLogScreen extends StatefulWidget {

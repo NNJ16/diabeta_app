@@ -7,7 +7,7 @@ import 'package:diabeta_app/services/health_predict_service.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
 
-import '../../../model/diabetes_questions.dart';
+import '../../model/diabetes_ques_ans.dart';
 
 class KidneyRiskScreen extends StatefulWidget {
   const KidneyRiskScreen({Key? key}) : super(key: key);

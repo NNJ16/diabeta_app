@@ -6,7 +6,7 @@ import 'package:diabeta_app/screens/diabetes/components/q_card_health3.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
 
-import '../../../model/diabetes_questions.dart';
+import '../../model/diabetes_ques_ans.dart';
 import '../../services/health_predict_service.dart';
 
 class HeartRiskScreen extends StatefulWidget {
