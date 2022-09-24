@@ -5,7 +5,10 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
+import '../../services/glucose_log_service.dart';
 
 class SplineAreaWeightData {
   // SplineAreaData(this.year, this.y1, this.y2);
@@ -26,20 +29,44 @@ class ReportScreen extends StatefulWidget {
 
 class _ReportScreenState extends State<ReportScreen> {
   late ChartSeriesController _chartSeriesController;
-  List<SplineAreaWeightData> _chartData = <SplineAreaWeightData>[
-    SplineAreaWeightData("Jan 10", 45),
-    SplineAreaWeightData("Feb 12", 80),
-    SplineAreaWeightData("Mar 12", 60),
-    SplineAreaWeightData("Apr 12", 40),
-    SplineAreaWeightData("May 12", 85),
-    SplineAreaWeightData("Jun 12", 62),
-    SplineAreaWeightData("Jul 12", 42),
-    SplineAreaWeightData("Aug 12", 12),
-    SplineAreaWeightData("Sep 12", 45),
-    SplineAreaWeightData("Oct 12", 75),
-    SplineAreaWeightData("Nov 12", 53),
-    SplineAreaWeightData("Dec 12", 46),
-  ];
+  List<SplineAreaWeightData> _chartGlucoseData = <SplineAreaWeightData>[];
+  List<SplineAreaWeightData> _chartCarbData = <SplineAreaWeightData>[];
+
+  void getChartGlucoseData() async {
+    List<SplineAreaWeightData> _data = <SplineAreaWeightData>[];
+    List data = await GlucoseLogService.getAllRecords('001', false);
+    data.forEach((element) {
+      if(element.glucoseLevel != null){
+        _data.add(SplineAreaWeightData(
+          DateFormat('MMM d').format(element.dateTime).toString(),
+          element.glucoseLevel));
+      }
+    });
+    setState(() {
+      _chartGlucoseData = _data;
+    });
+  }
+
+  void getChartCarbsData() async {
+    List<SplineAreaWeightData> _data = <SplineAreaWeightData>[];
+    List data = await GlucoseLogService.getAllRecords('001', false);
+    data.forEach((element) {
+      if(element.carbs != null){
+        _data.add(SplineAreaWeightData(
+          DateFormat('MMM d').format(element.dateTime).toString(),
+          element.carbs));
+      }
+    });
+    setState(() {
+      _chartCarbData = _data;
+    });
+  }
+  @override
+  void initState() {
+    getChartGlucoseData();
+    getChartCarbsData();
+  }
+  
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -53,9 +80,9 @@ class _ReportScreenState extends State<ReportScreen> {
               SizedBox(
                 height: 10,
               ),
-              ChartCard(width, "Blood Glucose", _chartData),
-              ChartCard(width,  "Carbohydrates", _chartData),
-              ChartCard(width,  "", _chartData),
+              ChartCard(width, "Glucose","mg/dL", _chartGlucoseData),
+              ChartCard(width,  "Carbohydrates","grams", _chartCarbData),
+              ChartCard(width,  "","mg/dL", _chartCarbData),
             ],
           ),
         ),
@@ -63,7 +90,7 @@ class _ReportScreenState extends State<ReportScreen> {
     );
   }
 
-  Container ChartCard(double width, String title,List<SplineAreaWeightData> chartData ) {
+  Container ChartCard(double width, String title, String unit,List<SplineAreaWeightData> chartData ) {
     return Container(
       height: 380,
       width: width - 20,
@@ -96,7 +123,7 @@ class _ReportScreenState extends State<ReportScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'Glucose Level',
+              title,
               textAlign: TextAlign.center,
               style: GoogleFonts.dmSans(
                 textStyle: const TextStyle(
@@ -105,12 +132,12 @@ class _ReportScreenState extends State<ReportScreen> {
                     fontWeight: FontWeight.normal),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
               height: 320,
-              child: SfCartesianChart(
+              child: chartData.isEmpty ? const Center(child: CircularProgressIndicator(color: Colors.white,)):SfCartesianChart(
                 zoomPanBehavior: ZoomPanBehavior(
                   enablePinching: true,
                   enableDoubleTapZooming: true,
@@ -166,12 +193,12 @@ class _ReportScreenState extends State<ReportScreen> {
                       // });
                     },
                     enableTooltip: true,
-                    dataSource: _chartData,
+                    dataSource: chartData,
                     borderColor: Colors.white,
                     splineType: SplineType.natural,
                     color: Colors.transparent,
                     borderWidth: 3,
-                    name: 'mg/dL',
+                    name: unit,
                     xValueMapper: (SplineAreaWeightData data, _) => data.title,
                     yValueMapper: (SplineAreaWeightData data, _) => data.value,
                   )

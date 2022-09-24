@@ -1,5 +1,6 @@
 import 'package:diabeta_app/components/constants.dart';
 import 'package:diabeta_app/screens/main_screen.dart';
+import 'package:diabeta_app/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -56,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         isDense: true,
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-                        labelText: 'Username',
+                        labelText: 'Email',
                       ),
                     ),
                   ),
@@ -93,11 +94,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () {
                           // if (_userNameController.text == "amal" &&
                           //     _passwordController.text == "1234") {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MainScreen()),
-                            );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MainScreen()),
+                          );
                           // } else {
                           //   const snackBar = SnackBar(
                           //       content: Text("Invalid username or password."),
@@ -119,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(vertical:8.0),
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
                     child: Center(
                         child: Text(
                       "- or -",
@@ -134,7 +135,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       constraints: const BoxConstraints.tightFor(height: 40),
                       child: ElevatedButton(
                         onPressed: () {
-
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RegisterScreen()),
+                          );
                         },
                         child: const Text(
                           'Register',

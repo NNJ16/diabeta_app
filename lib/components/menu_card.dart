@@ -23,7 +23,7 @@ class _MenuCardState extends State<MenuCard> {
             colors: <Color>[
               kPrimaryColor,
               // Color.fromARGB(255, 96, 207, 92),
-              Color.fromARGB(255, 19, 170, 11),
+                         Color.fromARGB(255, 2, 102, 93),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -114,7 +114,7 @@ class _MenuCardState extends State<MenuCard> {
                           const Icon(
                             Icons.arrow_downward,
                             size: 30,
-                            color: Colors.white,
+                            color: kSecondaryColor,
                           ),
                           Text(
                             widget.logCount.below.toString(),
@@ -140,7 +140,7 @@ class _MenuCardState extends State<MenuCard> {
                           const Icon(
                             Icons.arrow_upward,
                             size: 30,
-                            color: Colors.white,
+                            color: kSecondaryColor,
                           ),
                           Text(
                             widget.logCount.above.toString(),
@@ -234,7 +234,7 @@ class _MenuCardState extends State<MenuCard> {
                           const Icon(
                             Icons.arrow_downward,
                             size: 30,
-                            color: Colors.white,
+                            color: kSecondaryColor,
                           ),
                           Text(
                             widget.logCount.below.toString(),
@@ -260,7 +260,7 @@ class _MenuCardState extends State<MenuCard> {
                           const Icon(
                             Icons.arrow_upward,
                             size: 30,
-                            color: Colors.white,
+                            color: kSecondaryColor,
                           ),
                           Text(
                             widget.logCount.above.toString(),
@@ -354,7 +354,7 @@ class _MenuCardState extends State<MenuCard> {
                           const Icon(
                             Icons.arrow_downward,
                             size: 30,
-                            color: Colors.white,
+                            color: kSecondaryColor,
                           ),
                           Text(
                             widget.logCount.below.toString(),
@@ -380,7 +380,7 @@ class _MenuCardState extends State<MenuCard> {
                           const Icon(
                             Icons.arrow_upward,
                             size: 30,
-                            color: Colors.white,
+                            color: kSecondaryColor,
                           ),
                           Text(
                             widget.logCount.above.toString(),

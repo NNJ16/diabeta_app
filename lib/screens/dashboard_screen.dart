@@ -7,7 +7,6 @@ import 'package:diabeta_app/screens/diabetes/screens/glucose_log_screen.dart';
 import 'package:diabeta_app/screens/reports/report_screen.dart';
 import 'package:diabeta_app/services/glucose_log_service.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -38,23 +37,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
-  void initialaizeLineChart() async {
-    List data = await GlucoseLogService.getLast10GlucoseRecords('001');
-    var gdata = <GlucoseData>[];
-    data.forEach((element) {
-      gdata.add(GlucoseData(
-          DateFormat('MMM d').format(element.dateTime).toString(),
-          element.glucoseLevel));
-    });
-    entryCountList = await GlucoseLogService.getRecordsCountByTimeFrame('001');
-    setState(() {
-      glucoseData = gdata;
-    });
-  }
+  // void initialaizeLineChart() async {
+  //   List data = await GlucoseLogService.getLast10GlucoseRecords('001');
+  //   var gdata = <GlucoseData>[];
+  //   data.forEach((element) {
+  //     gdata.add(GlucoseData(
+  //         DateFormat('MMM d').format(element.dateTime).toString(),
+  //         element.glucoseLevel));
+  //   });
+  //   entryCountList = await GlucoseLogService.getRecordsCountByTimeFrame('001');
+  //   setState(() {
+  //     glucoseData = gdata;
+  //   });
+  // }
 
   @override
   void initState() {
-    initialaizeLineChart();
+    //initialaizeLineChart();
     getChartData();
     super.initState();
   }
@@ -176,7 +175,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           colors: <Color>[
             kPrimaryColor,
             // Color.fromARGB(255, 96, 207, 92),
-            Color.fromARGB(255, 19, 170, 11),
+           Color.fromARGB(255, 2, 102, 93),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -200,12 +199,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Text(
               'Glucose Level',
               textAlign: TextAlign.center,
-              style: GoogleFonts.dmSans(
-                textStyle: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.normal),
-              ),
+              style: TextStyle(color: Colors.white, fontSize: 17),
             ),
             SizedBox(
               height: 10,

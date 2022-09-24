@@ -98,11 +98,11 @@ class GlucoseLogService {
     return recordList;
   }
 
-  static Future<List<LogEntry>> getAllRecords(String accountId) async {
+  static Future<List<LogEntry>> getAllRecords(String accountId, bool descending) async {
     List<LogEntry> recordList = [];
     await _records
         .where("userId", isEqualTo: accountId)
-        .orderBy("dateTime", descending: true)
+        .orderBy("dateTime", descending: descending)
         .get()
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {

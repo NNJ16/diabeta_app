@@ -67,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const PrintLogScreen()),
+                          builder: (context) => PrintLogScreen(period: period)),
                     );
                   },
                 )
